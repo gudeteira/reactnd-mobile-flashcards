@@ -33,9 +33,10 @@ export const removeDeck = (deckId) => {
 };
 
 export const saveScore = (deck, score) => {
+  const roundedScore = Math.round(score);
   const data = {
-    lastScore: score,
-    bestScore: (score > deck.bestScore) ? score : deck.bestScore
+    lastScore: roundedScore,
+    bestScore: (roundedScore > deck.bestScore) ? roundedScore : deck.bestScore
   };
   return updateDeck(deck, data);
 };
