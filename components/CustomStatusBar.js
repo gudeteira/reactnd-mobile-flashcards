@@ -2,7 +2,6 @@ import {Constants} from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {Colors} from '../theme/theme';
 
 const CustomStatusBar = ({backgroundColor, ...props}) => {
   return (
@@ -16,7 +15,7 @@ CustomStatusBar.propTypes = {
   backgroundColor: PropTypes.string.isRequired
 };
 CustomStatusBar.defaultProps = {
-  backgroundColor: Colors.white,
+  backgroundColor: 'white',
 };
 
 export default CustomStatusBar;
