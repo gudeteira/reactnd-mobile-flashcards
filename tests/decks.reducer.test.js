@@ -1,4 +1,4 @@
-import {ADD_DECK, ADD_QUESTION, REMOVE_DECK, REMOVE_QUESTION} from '../actions';
+import {ADD_DECK, ADD_QUESTION, REMOVE_DECK, REMOVE_QUESTION, UPDATE_DECK} from '../actions';
 import decks from '../reducers';
 
 describe('Decks reducer', () => {
@@ -39,6 +39,18 @@ describe('Decks reducer', () => {
     ).toEqual({
       '1': {id: '1', name: 'Deck name', questions: []},
       '2': {id: '2', name: 'Deck 2 name', questions: []}
+    });
+  });
+
+  it('should set the score', () => {
+    expect(
+      decks({'1': {id: '1', name: 'Deck name', questions: []}}, {
+          type: UPDATE_DECK,
+          deck:  {id: '1', name: 'Deck name', questions: [], lastScore: 80, bestScore: 80},
+        }
+      )
+    ).toEqual({
+      '1': {id: '1', name: 'Deck name', questions: [], lastScore: 80, bestScore: 80},
     });
   });
 
