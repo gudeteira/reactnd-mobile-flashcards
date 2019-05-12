@@ -4,6 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {handleUpdateScore} from '../actions';
 import {Routes} from '../router/Routes';
+import {clearLocalNotification, setLocalNotification} from '../services/Notifications';
 import Container from './Container';
 import IconButton from './IconButton';
 import PopUp from './PopUp';
@@ -19,6 +20,11 @@ class Question extends Component {
     showingAnswer: false,
     rightAnswers: [],
   };
+
+  componentDidMount() {
+    clearLocalNotification()
+      .then(setLocalNotification);
+  }
 
   toggle = () => {
     this.setState((state) => {
@@ -52,10 +58,12 @@ class Question extends Component {
         });
       } else {
         const {rightAnswers} = this.state;
+        const {deck} = this.props;
         const summary = {
+          deckId: deck.id,
           total: totalQuestions,
           right: rightAnswers.length,
-          incorrect: this.props.deck.questions.length - rightAnswers.length
+          incorrect: deck.questions.length - rightAnswers.length
         };
         this.props.navigation.navigate(Routes.QuizSummary, {summary: summary});
         this.props.dispatch(handleUpdateScore(this.props.deck, (summary.right * 100) / summary.total));
@@ -111,12 +119,12 @@ class Question extends Component {
               {question.question}
             </Text>
           </View>
-          <View style={styles.buttonRowContainer}>
+          <View style={styles.buttonRow}>
             <IconButton style={[styles.buttonContainer, styles.buttonOk]} onPress={() => this.answer(true)}>
-              <Text>Ok</Text>
+              <Text style={styles.button}>Ok</Text>
             </IconButton>
             <IconButton style={[styles.buttonContainer, styles.buttonKo]} onPress={() => this.answer(false)}>
-              <Text>KO</Text>
+              <Text  style={styles.button}>KO</Text>
             </IconButton>
           </View>
 
@@ -138,12 +146,7 @@ function mapStateToProps(state, {navigation}) {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    alignItems: 'center',
-  },
+
   buttonOk: {backgroundColor: 'green'},
   buttonKo: {backgroundColor: 'red'},
   buttonRowContainer: {
@@ -152,10 +155,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginBottom: 20,
   },
-  button: {
+  buttonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    backgroundColor: '#673AB7',
     borderRadius: 8,
-    width: 10,
-
+    margin: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+  },
+  button: {
+    color: '#FFFFFF',
+    fontSize: 18,
   },
   rowContainer: {
     flexDirection: 'row',

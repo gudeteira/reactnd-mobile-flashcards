@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {removeDeck, removeQuestion} from '../actions';
 import {Routes} from '../router/Routes';
 import {removeDeck as deleteDeck, removeQuestion as deleteQuestion} from '../services/Api';
-import {clearLocalNotification, setLocalNotification} from '../services/Notifications';
 import Container from './Container';
 import IconButton from './IconButton';
 import Score from './Score';
@@ -17,8 +16,6 @@ class Deck extends Component {
     if (deck.questions.length === 0) {
       this.showAlert();
     } else {
-      clearLocalNotification()
-        .then(setLocalNotification);
       this.props.navigation.navigate(Routes.Question, {deck});
     }
   };
@@ -144,11 +141,9 @@ const styles = StyleSheet.create({
     paddingVertical: 22
   },
   fabIcon: {
-    borderWidth: 1,
-    borderColor: 'red',
     width: 55,
     height: 55,
-    backgroundColor: 'red',
+    backgroundColor: '#673AB7',
     borderRadius: 50,
     position: 'absolute',
     margin: 16,
