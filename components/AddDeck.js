@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {connect} from 'react-redux';
-import {handleAddDeck} from '../actions';
+import {addDeck} from '../actions';
+import {Routes} from '../router/Routes';
+import {saveDeck} from '../services/Api';
 import Container from './Container';
 import Toolbar from './Toolbar';
 
@@ -13,10 +15,13 @@ class AddDeck extends Component {
 
   saveDeck = () => {
     const {name} = this.state;
-    this.props.dispatch(handleAddDeck(name)).catch(e => console.error(e));
+    saveDeck(name).then(deck => {
+      this.props.dispatch(addDeck(deck));
+      this.props.navigation.navigate(Routes.Deck, {deckId: deck.id});
+    });
     this.setState({name: ''});
-    this.back();
   };
+
 
   back = () => {
     this.props.navigation.goBack();

@@ -8,11 +8,9 @@ describe('Decks reducer', () => {
       decks(undefined, {
         type: ADD_DECK,
         deck: {
-          '1': {
-            id: '1',
-            name: 'Deck name',
-            questions: []
-          }
+          id: '1',
+          name: 'Deck name',
+          questions: []
         }
       })
     ).toEqual({
@@ -29,11 +27,9 @@ describe('Decks reducer', () => {
       decks({'1': {id: '1', name: 'Deck name', questions: []}}, {
         type: ADD_DECK,
         deck: {
-          '2': {
-            id: '2',
-            name: 'Deck 2 name',
-            questions: []
-          }
+          id: '2',
+          name: 'Deck 2 name',
+          questions: []
         }
       })
     ).toEqual({
@@ -46,7 +42,7 @@ describe('Decks reducer', () => {
     expect(
       decks({'1': {id: '1', name: 'Deck name', questions: []}}, {
           type: UPDATE_DECK,
-          deck:  {id: '1', name: 'Deck name', questions: [], lastScore: 80, bestScore: 80},
+          deck: {id: '1', name: 'Deck name', questions: [], lastScore: 80, bestScore: 80},
         }
       )
     ).toEqual({

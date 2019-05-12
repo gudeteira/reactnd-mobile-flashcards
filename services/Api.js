@@ -18,7 +18,7 @@ export const saveDeck = (name) => {
     bestScore: ''
   };
   return merge(newDeck).then(() => {
-    return {[newDeck.id]: newDeck};
+    return newDeck;
   });
 };
 
