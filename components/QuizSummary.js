@@ -12,10 +12,14 @@ class QuizSummary extends PureComponent {
 
   render() {
     const {summary} = this.props.navigation.state.params;
+    const {deck} = this.props;
     return (
       <View style={{flex: 1}}>
         <Toolbar title={'Quiz summary'}/>
         <Container>
+          <View style={styles.container}>
+            <Text style={styles.title}>{deck.name}</Text>
+          </View>
           <View style={styles.scoresContainer}>
             <Score title='Questions' score={summary.total} color='blue'/>
             <Score title='Right' score={summary.right} color='green'/>
@@ -47,11 +51,20 @@ function mapStateToProps(state, {navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '900',
+  },
   scoresContainer: {
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     paddingVertical: 22,
   },
   buttonRow: {

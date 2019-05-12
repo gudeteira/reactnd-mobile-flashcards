@@ -106,13 +106,16 @@ class Question extends Component {
   };
 
   render() {
-    const totalQuestions = this.props.deck.questions.length;
+    const {deck} = this.props;
+    const totalQuestions = deck.questions.length;
     const currentQuestion = this.state.questionIndex + 1;
     const question = this.getCurrentQuestion();
     const answer = this.renderAnswer();
     return (
       <View style={{flex: 1}}>
-        <Toolbar title={`Question ${currentQuestion} of ${totalQuestions}`} buttons={this.toolbarButtons()}/>
+        <Toolbar title={deck.name}
+                 subtitle={`Question ${currentQuestion} of ${totalQuestions}`}
+                 buttons={this.toolbarButtons()}/>
 
         <Container>
           <View style={styles.questionContainer}>
