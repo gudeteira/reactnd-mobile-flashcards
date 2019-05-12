@@ -45,7 +45,7 @@ class AddDeck extends Component {
           </View>
           <View style={styles.footer}>
             <TouchableHighlight
-              underlayColor="#9575CD"
+              underlayColor="#63a4ff"
               style={styles.buttonContainer}
               onPress={this.saveDeck}>
               <Text style={styles.button}>Save</Text>

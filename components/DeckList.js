@@ -1,12 +1,12 @@
+import {Feather} from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
 import {handleGetDecks} from '../actions';
 import {Routes} from '../router/Routes';
 import {Card} from './card';
-import Container from './Container';
 
 
 class DeckList extends Component {
@@ -26,7 +26,12 @@ class DeckList extends Component {
   render() {
     const {decks} = this.props;
     if (Object.keys(decks).length === 0) {
-      return <Container><Text>No Decks</Text></Container>;
+      return <View style={styles.empty}>
+        <View style={styles.icon}>
+          <Feather name='book-open' size={150} color='grey'/>
+        </View>
+        <Text>No Decks</Text>
+      </View>;
     }
     return (
       <FlatList
@@ -42,5 +47,17 @@ function mapStateToProps(decks = {}) {
     decks
   };
 }
+
+const styles = StyleSheet.create({
+  empty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
+    opacity: 0.2
+  }
+
+});
 
 export default connect(mapStateToProps)(withNavigation(DeckList));
