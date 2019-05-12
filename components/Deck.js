@@ -1,35 +1,40 @@
 import React, {Component} from 'react';
-import {FlatList, View} from 'react-native';
-import {Avatar, FAB, IconButton, List} from 'react-native-paper';
+import {Alert, FlatList, StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {removeDeck} from '../actions';
-import {removeDeck as deleteDeck} from '../services/Api';
+import {removeDeck, removeQuestion} from '../actions';
+import {Routes} from '../router/Routes';
+import {removeDeck as deleteDeck, removeQuestion as deleteQuestion} from '../services/Api';
 import {clearLocalNotification, setLocalNotification} from '../services/Notifications';
-import {Colors, Theme} from '../theme/theme';
-
+import Container from './Container';
+import IconButton from './IconButton';
+import Score from './Score';
+import Toolbar from './Toolbar';
 
 class Deck extends Component {
-  // static navigationOptions = ({navigation}) => {
-  //   const {entryId} = navigation.state.params;
-  //
-  //   const year = entryId.slice(0, 4);
-  //   const month = entryId.slice(5, 7);
-  //   const day = entryId.slice(8);
-  //
-  //   return {
-  //     title: `${month}/${day}/${year}`
-  //   };
-  // };
 
   playQuiz = () => {
-    console.log('play quiz');
-    clearLocalNotification()
-      .then(setLocalNotification);
+    const {deck} = this.props;
+    if (deck.questions.length === 0) {
+      this.showAlert();
+    } else {
+      clearLocalNotification()
+        .then(setLocalNotification);
+      this.props.navigation.navigate(Routes.Question, {deck});
+    }
   };
 
+  showAlert = () => {
+    Alert.alert(
+      'No questions available',
+      'Please create a question to start quiz',
+      [
+        {text: 'OK'},
+      ],
+    );
+  };
   addQuestion = () => {
     const {deck} = this.props;
-    this.props.navigation.navigate('AddQuestion', {deckId: deck.id});
+    this.props.navigation.navigate(Routes.AddQuestion, {deckId: deck.id});
   };
 
   removeDeck = () => {
@@ -37,61 +42,73 @@ class Deck extends Component {
     this.props.dispatch(removeDeck(deck.id));
     this.props.navigation.goBack();
     deleteDeck(deck.id);
+  };
 
+  removeQuestion = index => {
+    const {deck} = this.props;
+    const question = deck.questions[index];
+    this.props.dispatch(removeQuestion(deck.id, question.id));
+    deleteQuestion(question, deck);
+  };
+
+  back = () => {
+    this.props.navigation.goBack();
   };
 
   renderItem = ({item, index}) => {
-    return <List.Item
-      title={item.question}
-      left={props => <Avatar.Text {...props} size={50} label={index + 1}/>}
-    />;
+    return (
+      <View style={styles.itemContainer}>
+        <View style={styles.rowContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>{item.question}</Text>
+          </View>
+          <View>
+            <IconButton name='close'
+                        style={styles.icon}
+                        onPress={() => this.removeQuestion(index)}/>
+          </View>
+        </View>
+      </View>
+    );
   };
 
   shouldComponentUpdate(nextProps) {
     return nextProps.deck !== undefined;
   }
 
+  toolbarButtons = () => {
+    return [
+      <IconButton key={'play'}
+                  name='play-circle-filled'
+                  style={styles.icon}
+                  onPress={this.playQuiz}/>,
+      <IconButton key={'remove'}
+                  name='close'
+                  style={styles.icon}
+                  onPress={this.removeDeck}/>
+    ];
+  };
+
   render() {
     const {deck} = this.props;
     return (
-      <View style={[Theme.homeContainer]}>
-        <IconButton size={20} icon="delete" onPress={this.removeDeck}/>
-        <IconButton size={20} icon="play-arrow" onPress={this.playQuiz}/>
-        <View>
+      <View style={{flex: 1}}>
+        <Toolbar title={deck.name} back={this.back} buttons={this.toolbarButtons()}/>
+        <Container>
+          <View style={styles.scoresContainer}>
+            <Score title='Best score' score={deck.bestScore}/>
+            <Score title='Last score' score={deck.lastScore}/>
+          </View>
+
           <FlatList
             data={deck.questions}
             keyExtractor={(item) => item.id}
             renderItem={this.renderItem}/>
-        </View>
-
-        <FAB style={Theme.fab} icon="add" color={Colors.text} onPress={this.addQuestion}/>
+        </Container>
+        <IconButton style={styles.fabIcon} name="add" size={30} color="white" onPress={this.addQuestion}/>
       </View>
     );
   }
-
-//   static Header = (navigation) => {
-//     const {deck} = props;
-//     const disabledPlayQuiz = Object.keys(deck.questions).length < 1;
-//     const goBack = () => {
-//       navigation.goBack();
-//     };
-//     return (
-//       <Appbar.Header>
-//         <Appbar.BackAction onPress={goBack}/>
-//         <Appbar.Content title={deck.name}/>
-//         <Appbar.Action icon="play-arrow"
-//                        disabled={disabledPlayQuiz}
-//                        onPress={() => {
-//                          console.log('play Deck:', deck);
-//                        }}/>
-//
-//
-//         <Appbar.Action icon="more-vert" onPress={() => {
-//           console.log('more');
-//         }}/>
-//       </Appbar.Header>
-//     );
-//   };
 }
 
 function mapStateToProps(state, {navigation}) {
@@ -102,5 +119,53 @@ function mapStateToProps(state, {navigation}) {
     deck: state[deckId],
   };
 }
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    marginHorizontal: 16,
+    marginVertical: 10,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    flex: 1,
+  },
+  titleText: {
+    fontSize: 18,
+  },
+  scoresContainer: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'flex-start',
+    justifyContent: 'space-evenly',
+    borderRadius: 8,
+    paddingVertical: 22
+  },
+  fabIcon: {
+    borderWidth: 1,
+    borderColor: 'red',
+    width: 55,
+    height: 55,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+    elevation: 2,
+  },
+  icon: {
+    borderWidth: 0,
+    borderColor: 'transparent',
+    width: 40,
+    height: 40,
+    backgroundColor: 'transparent',
+    borderRadius: 50,
+  },
+});
+
 
 export default connect(mapStateToProps)(Deck);
