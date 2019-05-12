@@ -26,11 +26,9 @@ class Home extends Component {
 const styles = StyleSheet.create({
 
   icon: {
-    borderWidth: 1,
-    borderColor: 'red',
     width: 55,
     height: 55,
-    backgroundColor: 'red',
+    backgroundColor: '#673AB7',
     borderRadius: 50,
     position: 'absolute',
     margin: 16,

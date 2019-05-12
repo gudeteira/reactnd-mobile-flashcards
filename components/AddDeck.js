@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: '#673AB7',
-    borderRadius: 100,
+    borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
   },
   button: {
-    color: '#000',
+    color: '#fff',
     fontSize: 18,
   },
 });
