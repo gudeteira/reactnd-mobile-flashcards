@@ -100,7 +100,7 @@ class Question extends Component {
   toolbarButtons = () => {
     return [
       <IconButton key={'show-answer'} onPress={this.toggle}>
-        <Text>Show answer</Text>
+        <Text style={styles.button}>Show answer</Text>
       </IconButton>
     ];
   };

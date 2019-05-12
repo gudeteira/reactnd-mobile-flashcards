@@ -16,7 +16,7 @@ class Score extends PureComponent {
     if (this.props.color) {
       return this.props.color;
     }
-    let color = 'black';
+    let color = 'gray';
     const {score} = this.props;
     if (typeof score === 'number') {
       if (score < 50) {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {},
   score: {
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
     width: 60,

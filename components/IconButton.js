@@ -15,7 +15,7 @@ class IconButton extends PureComponent {
   renderChildren = () => {
     const {children, name, size, color} = this.props;
     if (name) {
-      return <MaterialIcons name={name} size={size || 24} color={color || 'grey'}/>;
+      return <MaterialIcons name={name} size={size || 24} color={color || 'white'}/>;
     }
     return children;
 

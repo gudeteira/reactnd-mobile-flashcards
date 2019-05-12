@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   fabIcon: {
     width: 55,
     height: 55,
-    backgroundColor: '#673AB7',
+    backgroundColor: '#1976d2',
     borderRadius: 50,
     position: 'absolute',
     margin: 16,

@@ -1,4 +1,3 @@
-import {MaterialIcons} from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {StyleSheet, Text, View,} from 'react-native';
@@ -21,11 +20,7 @@ class Toolbar extends PureComponent {
           <View style={styles.toolbarContainer}>
             <View>
               {
-                back && <IconButton onPress={back}>
-                  <MaterialIcons
-                    name="chevron-left"
-                    size={30} color="#008dff"/>
-                </IconButton>
+                back && <IconButton name={'chevron-left'} size={30} onPress={back}/>
               }
             </View>
             <View style={styles.titleContainer}>
@@ -56,12 +51,13 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 150,
-    backgroundColor: 'white',
+    height: 120,
+    backgroundColor: '#1976d2',
   },
   titleText: {
     fontSize: 24,
     fontWeight: '900',
+    color: '#fff'
   }
 });
 

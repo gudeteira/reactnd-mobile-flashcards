@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {connect} from 'react-redux';
 import {handleGetDecks} from '../actions';
 import {Routes} from '../router/Routes';
 import {Card} from './card';
+import Container from './Container';
 
 
 class DeckList extends Component {
@@ -25,7 +26,7 @@ class DeckList extends Component {
   render() {
     const {decks} = this.props;
     if (Object.keys(decks).length === 0) {
-      return <View><Text>No Decks</Text></View>;
+      return <Container><Text>No Decks</Text></Container>;
     }
     return (
       <FlatList

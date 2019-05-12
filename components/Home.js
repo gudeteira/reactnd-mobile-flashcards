@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
   icon: {
     width: 55,
     height: 55,
-    backgroundColor: '#673AB7',
+    backgroundColor: '#1976d2',
     borderRadius: 50,
     position: 'absolute',
     margin: 16,
     right: 0,
     bottom: 0,
+    elevation: 2,
   },
 });
 
