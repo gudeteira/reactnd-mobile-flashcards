@@ -23,7 +23,7 @@ class DeckList extends Component {
   };
 
   render() {
-    const {decks} = this.props.decks;
+    const {decks} = this.props;
     if (Object.keys(decks).length === 0) {
       return <View><Text>No Decks</Text></View>;
     }
