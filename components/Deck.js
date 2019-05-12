@@ -37,7 +37,7 @@ class Deck extends Component {
   removeDeck = () => {
     const {deck} = this.props;
     this.props.dispatch(removeDeck(deck.id));
-    this.props.navigation.goBack();
+    this.back();
     deleteDeck(deck.id);
   };
 
