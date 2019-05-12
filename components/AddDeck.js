@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {connect} from 'react-redux';
 import {handleAddDeck} from '../actions';
-import {Theme} from '../theme/theme';
+import Container from './Container';
+import Toolbar from './Toolbar';
 
 class AddDeck extends Component {
 
@@ -15,27 +15,64 @@ class AddDeck extends Component {
     const {name} = this.state;
     this.props.dispatch(handleAddDeck(name)).catch(e => console.error(e));
     this.setState({name: ''});
+    this.back();
+  };
+
+  back = () => {
     this.props.navigation.goBack();
   };
 
   render() {
     return (
-      <View style={Theme.homeContainer}>
-        <TextInput
-          type='flat'
-          placeholder='Type the deck name'
-          label='name'
-          value={this.state.name}
-          onChangeText={name => {
-            this.setState({name});
-          }}
-        />
-        <Button mode="contained" onPress={this.saveDeck}>
-          Save
-        </Button>
-      </View>
+      <KeyboardAvoidingView style={{flex: 1,}} behavior="padding">
+        <Toolbar title={'New Deck'} back={this.back}/>
+        <Container>
+          <View style={{flex: 1}}>
+            <TextInput
+              autofocus={true}
+              placeholder='Name'
+              style={styles.inputForm}
+              value={this.state.name}
+              onChangeText={name => {
+                this.setState({name});
+              }}
+            />
+          </View>
+          <View style={styles.footer}>
+            <TouchableHighlight
+              underlayColor="#9575CD"
+              style={styles.buttonContainer}
+              onPress={this.saveDeck}>
+              <Text style={styles.button}>Save</Text>
+            </TouchableHighlight>
+          </View>
+        </Container>
+      </KeyboardAvoidingView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  inputForm: {
+    color: '#BBBBBB',
+    fontSize: 20,
+    borderColor: 'transparent',
+    borderWidth: 0
+  },
+  footer: {
+    padding: 20,
+  },
+  buttonContainer: {
+    backgroundColor: '#673AB7',
+    borderRadius: 100,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+  },
+  button: {
+    color: '#000',
+    fontSize: 18,
+  },
+});
 
 export default connect()(AddDeck);
