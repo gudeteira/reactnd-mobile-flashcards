@@ -1,46 +1,40 @@
 import {Animated, Easing} from 'react-native';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
-import {AddDeck, AddQuestion, Deck, Home} from '../components';
-import {Colors} from '../theme/theme';
+import {AddDeck, AddQuestion, Deck, Home, Question, QuizSummary} from '../components';
 
+const navigationOptions = {
+  header: null,
+};
 export default createAppContainer(createStackNavigator({
     Home: {
       screen: Home,
-      navigationOptions: {
-        header: null,
-      },
+      navigationOptions
     },
     Deck: {
       screen: Deck,
-      navigationOptions: ({navigation}) => ({
-        headerTintColor: Colors.text,
-        // header: null,
-        // header: Deck.Header(navigation),
-      }),
+      navigationOptions
     },
     AddDeck: {
       screen: AddDeck,
-      navigationOptions: ({navigation}) => ({
-        headerTintColor: Colors.text,
-        headerStyle: {
-          backgroundColor: Colors.primary.light,
-        },
-      }),
+      navigationOptions
     },
     AddQuestion: {
       screen: AddQuestion,
-      navigationOptions: ({navigation}) => ({
-        headerTintColor: Colors.text,
-        headerStyle: {
-          backgroundColor: Colors.primary.light,
-        },
-      }),
+      navigationOptions
+    },
+    Question: {
+      screen: Question,
+      navigationOptions
+    },
+    QuizSummary: {
+      screen: QuizSummary,
+      navigationOptions
     }
-  },{
+  }, {
     initialRouteName: 'Home',
     defaultNavigationOptions: {
       gesturesEnabled: false,
-      headerMode:'screen',
+      headerMode: 'screen',
     },
     transitionConfig: () => ({
       transitionSpec: {
