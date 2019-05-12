@@ -1,4 +1,4 @@
-import {MaterialIcons} from '@expo/vector-icons';
+import {Feather} from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
@@ -15,7 +15,7 @@ class IconButton extends PureComponent {
   renderChildren = () => {
     const {children, name, size, color} = this.props;
     if (name) {
-      return <MaterialIcons name={name} size={size || 24} color={color || 'white'}/>;
+      return <Feather name={name} size={size || 24} color={color || 'white'}/>;
     }
     return children;
 

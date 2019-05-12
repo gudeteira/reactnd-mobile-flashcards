@@ -17,7 +17,7 @@ class Home extends Component {
       <View style={{flex: 1}}>
         <Toolbar title='My Flashcards'/>
         <DeckList/>
-        <IconButton style={styles.icon} name="add" size={30} color="white" onPress={this.addDeck}/>
+        <IconButton style={styles.icon} name="plus" size={30} color="white" onPress={this.addDeck}/>
       </View>
     );
   }

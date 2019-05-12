@@ -60,7 +60,7 @@ class Deck extends Component {
             <Text style={styles.titleText}>{item.question}</Text>
           </View>
           <View>
-            <IconButton name='close'
+            <IconButton name='trash-2' color='#000'
                         style={styles.icon}
                         onPress={() => this.removeQuestion(index)}/>
           </View>
@@ -76,11 +76,11 @@ class Deck extends Component {
   toolbarButtons = () => {
     return [
       <IconButton key={'play'}
-                  name='play-circle-filled'
+                  name='play'
                   style={styles.icon}
                   onPress={this.playQuiz}/>,
       <IconButton key={'remove'}
-                  name='close'
+                  name='trash-2'
                   style={styles.icon}
                   onPress={this.removeDeck}/>
     ];
@@ -102,7 +102,7 @@ class Deck extends Component {
             keyExtractor={(item) => item.id}
             renderItem={this.renderItem}/>
         </Container>
-        <IconButton style={styles.fabIcon} name="add" size={30} color="white" onPress={this.addQuestion}/>
+        <IconButton style={styles.fabIcon} name="plus" size={30} color="white" onPress={this.addQuestion}/>
       </View>
     );
   }
