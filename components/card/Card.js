@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {PureComponent} from 'react';
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Content from './Content';
 import Header from './Header';
 
@@ -20,12 +20,12 @@ class Card extends PureComponent {
     const {name, ...rest} = item;
 
     return (
-      <TouchableWithoutFeedback onPress={this.onPressed}>
+      <TouchableOpacity onPress={this.onPressed}>
         <View style={[styles.container, style]} pointerEvents="box-only">
           <Header name={name}/>
           <Content {...rest} />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }
