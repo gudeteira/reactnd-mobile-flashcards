@@ -69,6 +69,7 @@ class Question extends Component {
         this.props.dispatch(handleUpdateScore(this.props.deck, (summary.right * 100) / summary.total));
         this.setState(() => {
           return {
+            questionIndex: 0,
             totalQuestions: 0,
             showingAnswer: false,
             rightAnswers: []
@@ -124,7 +125,7 @@ class Question extends Component {
               <Text style={styles.button}>Ok</Text>
             </IconButton>
             <IconButton style={[styles.buttonContainer, styles.buttonKo]} onPress={() => this.answer(false)}>
-              <Text  style={styles.button}>KO</Text>
+              <Text style={styles.button}>KO</Text>
             </IconButton>
           </View>
 
