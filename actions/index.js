@@ -1,8 +1,9 @@
-import {getData, saveDeck, saveQuestion} from '../services/Api';
+import {getData, saveDeck, saveQuestion, saveScore} from '../services/Api';
 
 export const GET_DECKS = 'GET_DECKS';
 export const ADD_DECK = 'ADD_DECK';
 export const REMOVE_DECK = 'REMOVE_DECK';
+export const UPDATE_DECK = 'UPDATE_DECK';
 export const ADD_QUESTION = 'ADD_QUESTION';
 export const REMOVE_QUESTION = 'REMOVE_QUESTION';
 
@@ -46,6 +47,21 @@ export const removeDeck = (deckId) => {
   };
 };
 
+export const updateDeck = (deck) => {
+  return {
+    type: UPDATE_DECK,
+    deck,
+  };
+};
+
+export const handleUpdateScore = (deck, score) => {
+  return (dispatch, getState) => {
+    return saveScore(deck, score).then(updatedDeck => {
+      dispatch(updateDeck(updatedDeck));
+    }).catch(e => console.error(e));
+  };
+};
+
 export const addQuestion = (deckId, question) => {
   return {
     type: ADD_QUESTION,
@@ -66,9 +82,10 @@ export const handleAddQuestion = (question, deck) => {
   };
 };
 
-export const removeQuestion = (question) => {
+export const removeQuestion = (deckId, questionId) => {
   return {
     type: REMOVE_QUESTION,
-    question
+    deckId,
+    questionId
   };
 };
