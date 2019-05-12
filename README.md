@@ -7,7 +7,9 @@ This is my project for the Udacity's React Nanodegree Program
 * Clone the repo `git clone git@github.com:gudeteira/reactnd-mobile-flashcards.git`
 * Go into the project's dir  `cd reactnd-mobile-flashcards`
 * Install all project dependencies with `yarn install`
-* Start the project with `yarn android`
+* Start android emulator
+* Start the project with `yarn start` or maybe you prefer `yarn android`
+* If you prefer, install the Expo client app on Android phone and connect to the same wireless network as your computer. Use the Expo app to scan the QR code from your terminal to open your project. 
 * Run tests with `yarn test`
 
 ### Note:
