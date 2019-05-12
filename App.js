@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Colors} from 'react-native-paper';
+import {View} from 'react-native';
 import {Provider} from 'react-redux';
 import {CustomStatusBar} from './components';
 import Router from './router/Router';
@@ -16,7 +15,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{flex: 1, backgroundColor: Colors.grey50}}>
+        <View style={{flex: 1}}>
           <CustomStatusBar barStyle="light-content"/>
           <View style={{flex: 1}}>
             <Router/>
@@ -26,26 +25,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 25,
-  },
-  surface: {
-    padding: 8,
-    height: 80,
-    width: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 10,
-  },
-});
