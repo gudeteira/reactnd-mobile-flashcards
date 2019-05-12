@@ -52,7 +52,7 @@ class Deck extends Component {
   };
 
   back = () => {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate(Routes.Home);
   };
 
   renderItem = ({item, index}) => {
