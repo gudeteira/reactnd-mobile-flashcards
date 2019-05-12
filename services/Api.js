@@ -32,13 +32,30 @@ export const removeDeck = (deckId) => {
     });
 };
 
+export const saveScore = (deck, score) => {
+  const data = {
+    lastScore: score,
+    bestScore: (score > deck.bestScore) ? score : deck.bestScore
+  };
+  return updateDeck(deck, data);
+};
+
+export const updateDeck = (deck, changes) => {
+  const updatedDeck = {
+    ...deck,
+    ...changes
+  };
+  return merge(updatedDeck).then(() => {
+    return updatedDeck;
+  });
+};
+
 export const saveQuestion = (question, deck) => {
   question['id'] = generateUID();
   const updatedDeck = {
     ...deck,
     questions: deck.questions.concat([question])
   };
-
   return merge(updatedDeck).then(() => {
     return question;
   });
@@ -47,7 +64,7 @@ export const saveQuestion = (question, deck) => {
 export const removeQuestion = (question, deck) => {
   const updatedDeck = {
     ...deck,
-    questions: deck.questions.filter(q => q !== question.id)
+    questions: deck.questions.filter(q => q.id !== question.id)
   };
   return merge(updatedDeck).then(() => {
     return question;
